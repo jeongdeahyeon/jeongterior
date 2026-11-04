@@ -115,6 +115,8 @@ select{appearance:none;background:transparent}
 .unit{display:flex;align-items:baseline;gap:8px}
 .unit span{font-size:14px;color:var(--gray);white-space:nowrap}
 .radios{display:flex;gap:8px;flex-wrap:wrap}
+.pre{border-top:1px solid var(--line);padding-top:26px;display:grid;gap:22px}
+.pre h4{font-size:15px;font-weight:700}.pre h4 small,.pre label small{font-size:12px;font-weight:400;color:var(--gray);margin-left:6px}
 .radios button{padding:11px 20px;border:1px solid var(--line);border-radius:100px;font-size:14px;transition:.15s}
 .radios button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 .agree{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray);line-height:1.6}
@@ -472,11 +474,28 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
           </div>
         </div>
         <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
+        <div class="pre">
+          <h4>상담 전 이야기 <small>선택 · 적어 주시면 상담이 더 알찹니다</small></h4>
+          <div><label>지금 집에서 가장 불편한 곳은 어디인가요?</label><input id="s1" placeholder="예) 수납, 동선, 욕실, 주방"></div>
+          <div><label>집에서 가장 오래 머무는 공간은요?</label><input id="s2" placeholder="예) 거실, 주방, 침실"></div>
+          <div><label>좋아하는 분위기 <small>복수 선택 가능</small></label>
+            <div class="radios multi" id="s3">
+              <button type="button" data-v="우드">우드</button>
+              <button type="button" data-v="화이트">화이트</button>
+              <button type="button" data-v="모던">모던</button>
+              <button type="button" data-v="호텔 같은 느낌">호텔 같은 느낌</button>
+              <button type="button" data-v="잘 모르겠어요">잘 모르겠어요</button>
+            </div>
+          </div>
+          <div><label>함께 지내시는 분은 누구인가요? <small>반려동물 포함</small></label><input id="s4" placeholder="예) 부부, 아이 1명, 강아지"></div>
+          <div><label>꼭 지키고 싶은 것 · 꼭 바꾸고 싶은 것</label><input id="s5" placeholder="각각 한 가지씩 적어 주세요"></div>
+          <div><label>참고하실 사진이나 인스타 계정</label><input id="s6" placeholder="없으시면 비워 두셔도 됩니다"></div>
+        </div>
         <label class="agree"><input type="checkbox" id="fAgree" required>
           <span>개인정보 수집 및 이용에 동의합니다. <em>*</em><br>
           수집 항목: 성함, 연락처, 주소 · 이용 목적: 상담 및 견적 안내 · 보유 기간: 상담 종료 후 1년</span></label>
         <button type="submit" class="submit">신청하기</button>
-        <p class="fnote">버튼을 누르면 입력한 내용이 담긴 메일 작성 창이 열립니다. 도면이나 참고 사진은 열린 메일 창에 직접 첨부해 주세요.</p>
+        <p class="fnote">신청하시면 확인 후 연락드립니다. 도면이나 참고 사진이 있다면 상담 때 보여 주세요.</p>
       </form>
     </div>
   </div>
@@ -533,8 +552,11 @@ const onScroll=()=>hd.classList.toggle('solid',window.scrollY>40);
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
 /* 라디오 */
-document.querySelectorAll('.radios').forEach(g=>g.querySelectorAll('button').forEach(b=>
+document.querySelectorAll('.radios:not(.multi)').forEach(g=>g.querySelectorAll('button').forEach(b=>
   b.addEventListener('click',()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');})));
+document.querySelectorAll('.radios.multi button').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
+const pickAll=id=>[...document.querySelectorAll('#'+id+' button.on')].map(b=>b.dataset.v).join(', ');
+const survey=()=>{const v=id=>document.getElementById(id).value.trim();const a=[['불편한 곳',v('s1')],['오래 머무는 곳',v('s2')],['분위기',pickAll('s3')],['함께 사는 분',v('s4')],['지킬 것/바꿀 것',v('s5')],['참고',v('s6')]].filter(x=>x[1]);return a.map(x=>x[0]+': '+x[1]).join('\n');};
 const pick=id=>document.querySelector('#'+id+' button.on').dataset.v;
 
 /* 메일 전송 */
@@ -556,7 +578,7 @@ document.getElementById('qf').addEventListener('submit',async e=>{
 
 공사 내용:
 ${v('fMsg')||'-'}
-
+${survey()?'\n상담 전 이야기:\n'+survey()+'\n':''}
 ※ 도면이나 참고 사진이 있으시면 이 메일에 첨부해 주세요.`;
   const sendMail=()=>{location.href=`mailto:eogus40301@gmail.com?subject=${encodeURIComponent('[상담 신청] '+v('fName')+' · '+v('fPy')+'평')}&body=${encodeURIComponent(body)}`;};
   if(!WORKER_URL){sendMail();return;}
@@ -564,10 +586,10 @@ ${v('fMsg')||'-'}
   try{
     const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       name:v('fName'),tel:v('fTel'),addr:v('fAddr'),addr2:v('fAddr2'),startDate:v('fDate'),budget:v('fBudget'),
-      py:v('fPy'),areaType:pick('fArea'),route:pick('fRoute'),message:v('fMsg')})});
+      py:v('fPy'),areaType:pick('fArea'),route:pick('fRoute'),message:v('fMsg'),survey:survey()})});
     const j=await r.json().catch(()=>({}));
     if(!r.ok||!j.ok)throw new Error('send failed');
-    btn.textContent='신청이 접수되었습니다';e.target.reset();
+    btn.textContent='신청이 접수되었습니다';e.target.reset();document.querySelectorAll('.radios.multi button.on').forEach(x=>x.classList.remove('on'));
     setTimeout(()=>{btn.disabled=false;btn.textContent=label;},4000);
   }catch(err){
     btn.disabled=false;btn.textContent=label;sendMail();
