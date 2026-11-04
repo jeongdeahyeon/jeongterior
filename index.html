@@ -115,13 +115,15 @@ select{appearance:none;background:transparent}
 .unit{display:flex;align-items:baseline;gap:8px}
 .unit span{font-size:14px;color:var(--gray);white-space:nowrap}
 .radios{display:flex;gap:8px;flex-wrap:wrap}
-.pre{border-top:1px solid var(--line);padding-top:18px}
-.pre summary{cursor:pointer;font-size:15px;font-weight:700;list-style:none;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pre{border:1px solid var(--line);border-radius:10px;background:var(--soft);transition:.2s}
+.pre:hover{border-color:var(--brand)}
+.pre summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:18px 20px;font-size:15.5px;font-weight:700}
 .pre summary::-webkit-details-marker{display:none}
-.pre summary:after{content:"+";margin-left:auto;font-size:20px;font-weight:300;color:var(--gray)}
-.pre[open] summary:after{content:"–"}
-.pre summary small,.pre label small{font-size:12px;font-weight:400;color:var(--gray)}
-.pre-in{display:grid;gap:22px;padding-top:24px}
+.pre summary small{flex-basis:100%;order:3;font-size:12.5px;font-weight:400;color:var(--gray)}
+.pre summary:after{content:"열기  +";order:2;margin-left:auto;font-size:13px;font-weight:600;color:#fff;background:var(--brand);padding:7px 16px;border-radius:100px}
+.pre[open] summary:after{content:"접기  –";background:transparent;color:var(--brand);border:1px solid var(--brand);padding:6px 15px}
+.pre label small{font-size:12px;font-weight:400;color:var(--gray)}
+.pre-in{display:grid;gap:22px;padding:6px 20px 24px}
 .radios button{padding:11px 20px;border:1px solid var(--line);border-radius:100px;font-size:14px;transition:.15s}
 .radios button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 .agree{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray);line-height:1.6}
@@ -480,7 +482,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
         </div>
         <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
         <details class="pre">
-          <summary>상담 전 이야기 <small>선택 · 적어 주시면 상담이 더 알찹니다</small></summary>
+          <summary>상담 전 이야기 (선택)<small>적어 주시면 상담이 더 알찹니다. 안 적으셔도 신청할 수 있어요.</small></summary>
           <div class="pre-in">
           <div><label>지금 집에서 가장 불편한 곳은 어디인가요?</label><input id="s1" placeholder="예) 수납, 동선, 욕실, 주방"></div>
           <div><label>집에서 가장 오래 머무는 공간은요?</label><input id="s2" placeholder="예) 거실, 주방, 침실"></div>
