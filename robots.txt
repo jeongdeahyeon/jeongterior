@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://jeongdeahyeon.github.io/jeongterior/sitemap.xml
