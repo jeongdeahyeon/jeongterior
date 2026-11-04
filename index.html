@@ -115,8 +115,13 @@ select{appearance:none;background:transparent}
 .unit{display:flex;align-items:baseline;gap:8px}
 .unit span{font-size:14px;color:var(--gray);white-space:nowrap}
 .radios{display:flex;gap:8px;flex-wrap:wrap}
-.pre{border-top:1px solid var(--line);padding-top:26px;display:grid;gap:22px}
-.pre h4{font-size:15px;font-weight:700}.pre h4 small,.pre label small{font-size:12px;font-weight:400;color:var(--gray);margin-left:6px}
+.pre{border-top:1px solid var(--line);padding-top:18px}
+.pre summary{cursor:pointer;font-size:15px;font-weight:700;list-style:none;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pre summary::-webkit-details-marker{display:none}
+.pre summary:after{content:"+";margin-left:auto;font-size:20px;font-weight:300;color:var(--gray)}
+.pre[open] summary:after{content:"–"}
+.pre summary small,.pre label small{font-size:12px;font-weight:400;color:var(--gray)}
+.pre-in{display:grid;gap:22px;padding-top:24px}
 .radios button{padding:11px 20px;border:1px solid var(--line);border-radius:100px;font-size:14px;transition:.15s}
 .radios button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 .agree{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray);line-height:1.6}
@@ -474,8 +479,9 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
           </div>
         </div>
         <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
-        <div class="pre">
-          <h4>상담 전 이야기 <small>선택 · 적어 주시면 상담이 더 알찹니다</small></h4>
+        <details class="pre">
+          <summary>상담 전 이야기 <small>선택 · 적어 주시면 상담이 더 알찹니다</small></summary>
+          <div class="pre-in">
           <div><label>지금 집에서 가장 불편한 곳은 어디인가요?</label><input id="s1" placeholder="예) 수납, 동선, 욕실, 주방"></div>
           <div><label>집에서 가장 오래 머무는 공간은요?</label><input id="s2" placeholder="예) 거실, 주방, 침실"></div>
           <div><label>좋아하는 분위기 <small>복수 선택 가능</small></label>
@@ -490,7 +496,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
           <div><label>함께 지내시는 분은 누구인가요? <small>반려동물 포함</small></label><input id="s4" placeholder="예) 부부, 아이 1명, 강아지"></div>
           <div><label>꼭 지키고 싶은 것 · 꼭 바꾸고 싶은 것</label><input id="s5" placeholder="각각 한 가지씩 적어 주세요"></div>
           <div><label>참고하실 사진이나 인스타 계정</label><input id="s6" placeholder="없으시면 비워 두셔도 됩니다"></div>
-        </div>
+          </div>
+        </details>
         <label class="agree"><input type="checkbox" id="fAgree" required>
           <span>개인정보 수집 및 이용에 동의합니다. <em>*</em><br>
           수집 항목: 성함, 연락처, 주소 · 이용 목적: 상담 및 견적 안내 · 보유 기간: 상담 종료 후 1년</span></label>
