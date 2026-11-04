@@ -117,11 +117,11 @@ select{appearance:none;background:transparent}
 .radios{display:flex;gap:8px;flex-wrap:wrap}
 .pre{border:1px solid var(--line);border-radius:10px;background:var(--soft);transition:.2s}
 .pre:hover{border-color:var(--brand)}
-.pre summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:18px 20px;font-size:15.5px;font-weight:700}
+.pre summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:18px 20px;font-size:17px;font-weight:700}
 .pre summary::-webkit-details-marker{display:none}
-.pre summary small{flex-basis:100%;order:3;font-size:12.5px;font-weight:400;color:var(--gray)}
-.pre summary:after{content:"열기  +";order:2;margin-left:auto;font-size:13px;font-weight:600;color:#fff;background:var(--brand);padding:7px 16px;border-radius:100px}
-.pre[open] summary:after{content:"접기  –";background:transparent;color:var(--brand);border:1px solid var(--brand);padding:6px 15px}
+.pre summary small{flex-basis:100%;order:3;font-size:14px;font-weight:400;color:var(--gray)}
+.pre summary:after{content:"열기  +";order:2;margin-left:auto;font-size:16px;font-weight:700;color:#fff;background:var(--brand);padding:11px 22px;border-radius:100px}
+.pre[open] summary:after{content:"접기  –";background:transparent;color:var(--brand);border:1px solid var(--brand);padding:10px 21px}
 .pre label small{font-size:12px;font-weight:400;color:var(--gray)}
 .pre-in{display:grid;gap:22px;padding:6px 20px 24px}
 .radios button{padding:11px 20px;border:1px solid var(--line);border-radius:100px;font-size:14px;transition:.15s}
@@ -480,7 +480,6 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
             <button type="button" data-v="추천">추천</button>
           </div>
         </div>
-        <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
         <details class="pre">
           <summary>상담 전 이야기 (선택)<small>적어 주시면 상담이 더 알찹니다. 안 적으셔도 신청할 수 있어요.</small></summary>
           <div class="pre-in">
@@ -500,6 +499,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
           <div><label>참고하실 사진이나 인스타 계정</label><input id="s6" placeholder="없으시면 비워 두셔도 됩니다"></div>
           </div>
         </details>
+        <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
         <label class="agree"><input type="checkbox" id="fAgree" required>
           <span>개인정보 수집 및 이용에 동의합니다. <em>*</em><br>
           수집 항목: 성함, 연락처, 주소 · 이용 목적: 상담 및 견적 안내 · 보유 기간: 상담 종료 후 1년</span></label>
