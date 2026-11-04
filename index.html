@@ -496,7 +496,6 @@ footer{border-top:1px solid var(--line);padding:34px 0;font-size:12px;letter-spa
           </div>
           <div><label>함께 지내시는 분은 누구인가요? <small>반려동물 포함</small></label><input id="s4" placeholder="예) 부부, 아이 1명, 강아지"></div>
           <div><label>꼭 지키고 싶은 것 · 꼭 바꾸고 싶은 것</label><input id="s5" placeholder="각각 한 가지씩 적어 주세요"></div>
-          <div><label>참고하실 사진이나 인스타 계정</label><input id="s6" placeholder="없으시면 비워 두셔도 됩니다"></div>
           </div>
         </details>
         <div><label>공사 내용</label><textarea id="fMsg" placeholder="원하시는 공사 범위와 참고할 내용을 적어주세요."></textarea></div>
@@ -565,7 +564,7 @@ document.querySelectorAll('.radios:not(.multi)').forEach(g=>g.querySelectorAll('
   b.addEventListener('click',()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');})));
 document.querySelectorAll('.radios.multi button').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
 const pickAll=id=>[...document.querySelectorAll('#'+id+' button.on')].map(b=>b.dataset.v).join(', ');
-const survey=()=>{const v=id=>document.getElementById(id).value.trim();const a=[['불편한 곳',v('s1')],['오래 머무는 곳',v('s2')],['분위기',pickAll('s3')],['함께 사는 분',v('s4')],['지킬 것/바꿀 것',v('s5')],['참고',v('s6')]].filter(x=>x[1]);return a.map(x=>x[0]+': '+x[1]).join('\n');};
+const survey=()=>{const v=id=>document.getElementById(id).value.trim();const a=[['불편한 곳',v('s1')],['오래 머무는 곳',v('s2')],['분위기',pickAll('s3')],['함께 사는 분',v('s4')],['지킬 것/바꿀 것',v('s5')]].filter(x=>x[1]);return a.map(x=>x[0]+': '+x[1]).join('\n');};
 const pick=id=>document.querySelector('#'+id+' button.on').dataset.v;
 
 /* 메일 전송 */
